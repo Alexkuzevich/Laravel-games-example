@@ -4,20 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePricesTable extends Migration
+class CreateProductsCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('prices', function (Blueprint $table) {
+        Schema::create('category_product', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id')->default(0);
-            $table->float('price');
-            $table->string('price_type');
+            $table->integer('product_id');
+            $table->integer('category_id');
 
             //$table->timestamps();
         });
@@ -28,8 +27,8 @@ class CreatePricesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('prices');
+        Schema::dropIfExists('category_product');
     }
 }

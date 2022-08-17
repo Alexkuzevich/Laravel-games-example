@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->boolean('novelty');
             $table->integer('status')->default(10);
 
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

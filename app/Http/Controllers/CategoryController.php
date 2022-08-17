@@ -14,7 +14,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $query = Category::query();
+
+        //$children = Category::with('parent_id')->get();
+
+        return $query->get();
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePublishersTable extends Migration
+class AddProductIdFieldToPublishersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreatePublishersTable extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('image')->comment('publisher image');
-
-            $table->timestamps();
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->integer('product_id')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreatePublishersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publishers');
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->dropColumn('product_id');
+        });
     }
 }
