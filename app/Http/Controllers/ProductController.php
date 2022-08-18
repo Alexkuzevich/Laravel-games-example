@@ -30,11 +30,11 @@ class ProductController extends Controller
         }
 
         if ($request->input('filter_max_price')!== null) {
-            $query->join('prices', 'products.id', '=', 'prices.product_id')
-                ->where('price', '<=', $request->input('filter_max_price'));
+            $query->whereHas('prices', function (\Illuminate\Database\Eloquent\Builder $query) use ($request) {
+               $query->where('price', '<=', $request->input('filter_max_price'))->where('price_type', 'normal price');
+            });
         }
 
-        //эта фильтрация по издателю работает странно!
         if($request->input('filter_publisher')!== null) {
             $query->whereHas('publisher', function (\Illuminate\Database\Eloquent\Builder $query) use ($request) {
                $query->where('name', $request->input('filter_publisher'));
@@ -42,9 +42,8 @@ class ProductController extends Controller
 
         }
 
-        //фильтрация по категориям аналогично
         if($request->input('filter_category')!== null) {
-            $query->select('products.name')->join('category_product', 'products.id', '=', 'category_product.product_id')
+            $query->join('category_product', 'products.id', '=', 'category_product.product_id')
                 ->join('categories', 'category.id', '=', 'category_product.category.id')
                 ->where('category.name', '=', $request->input('filter_category'));
         }
@@ -57,8 +56,12 @@ class ProductController extends Controller
 
         if ($request->input('sortByPrice')!== null) {
             if ($request->input('sortByPrice') == true) {
-                $query->select('name')->join('prices', 'products.id', '=', 'prices.product_id')
-                    ->orderBy('price');
+//                $query->join('prices', 'products.id', '=', 'prices.product_id')
+//                    ->orderBy('price');
+
+                $query->whereHas('prices', function (\Illuminate\Database\Eloquent\Builder $query) {
+                    $query->orderBy('price');
+                });
 
             }
         }
@@ -78,7 +81,6 @@ class ProductController extends Controller
         }
 
         return \response()->json(ProductResource::collection($query->get()));
-        //return $query->get();
     }
 
     /**
