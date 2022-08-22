@@ -26,6 +26,11 @@ class ProductSeeder extends Seeder
             'novelty' => false,
         ]);
 
+        $priceDota = Price::create([
+            'price' => 0,
+            'price_type' => 'normal price'
+        ]);
+
         $productCounterStrike = Product::create([
             'name' => 'Counter Strike',
             'description' => 'Valve FPS game',
@@ -35,6 +40,16 @@ class ProductSeeder extends Seeder
             'novelty' => false,
         ]);
 
+        $priceCSgoNormal = Price::create([
+            'price' => 1000,
+            'price_type' => 'normal price'
+        ]);
+
+        $priceCSgoSale = Price::create([
+            'price' => 700,
+            'price_type' => 'sale price'
+        ]);
+
         $productMassEffect = Product::create([
             'name' => 'Mass Effect 3',
             'description' => 'Third part of Mass Effect franchise',
@@ -42,6 +57,11 @@ class ProductSeeder extends Seeder
             'preview_image' => 'https://avatars.dicebear.com/v2/initials/mass-effect-3.svg',
             'video' => 'https://www.youtube.com/watch?v=AluTOOCVXVQ',
             'novelty' => false,
+        ]);
+
+        $priceME3Normal = Price::create([
+            'price' => 4200,
+            'price_type' => 'normal price'
         ]);
 
         $productMario = Product::create([
@@ -60,6 +80,11 @@ class ProductSeeder extends Seeder
             'video' => 'https://www.youtube.com/watch?v=wtIp8jOo8_o',
             'novelty' => false,
             'position' => 999
+        ]);
+
+        $priceHFNormal = Price::create([
+            'price' => 400,
+            'price_type' => 'normal price'
         ]);
 
         $dota = Category::where('name', 'MOBA')->firstOrFail();

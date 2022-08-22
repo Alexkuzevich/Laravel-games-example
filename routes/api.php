@@ -24,8 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('products', [ProductController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
 
-//Route::middleware('priceToken')->group(function () {
+Route::middleware('priceToken')->group(function () {
     Route::get('prices', [PriceController::class, 'index']);
-//});
+});
 
 
